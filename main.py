@@ -1,6 +1,6 @@
 import pygame as pg
 
-from classes import Character
+from classes import Character, GameLoop
 
 
 pg.init()
@@ -48,19 +48,27 @@ frame = 1
 player = Character()
 player2 = Character(550,400,pg.K_u,pg.K_o)
 
+game = GameLoop()
+
 while True:
 
-    player.add_input(frame)
+    inputs = game.get_inputs()
+
+    #player.add_input(frame)
+
+    player.input_buffer.append([frame,inputs[0]])
     player.remove_input(frame)
     player.format_input()
     player.do_move(player.read_inputs())
     player.fall()
 
-    player2.add_input(frame)
+    #player2.add_input(frame)
+    player2.input_buffer.append([frame,inputs[1]])
     player2.remove_input(frame)
     player2.format_input()
     player2.do_move(player2.read_inputs())
     player2.fall()
+
 
 
 
