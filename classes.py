@@ -8,6 +8,9 @@ movement = ("w", "a", "s", "d")
 player1binds = {pg.K_a : "4",pg.K_d : "6",pg.K_w:"8",pg.K_i:"i",pg.K_k:"k"}
 player2binds = {pg.K_g : "4",pg.K_j : "6",pg.K_y:"8",pg.K_b:"i",pg.K_n:"k"}
 allowed = player1binds|player2binds
+moving_right = False
+moving_left = False
+
 
 class GameLoop:
     def __init__(self, inputs = []):
@@ -23,6 +26,17 @@ class GameLoop:
                     add[0].append(player1binds[press.key])
                 elif press.key in player2binds:
                     add[1].append(player2binds[press.key])
+
+            elif press.type == pg.KEYUP:
+                if press.key == player1binds[pg.K_a]:
+                    add[0].append("$")
+                elif press.key == player1binds[pg.K_d]:
+                    add[0].append("^")
+                if press.key == player2binds[pg.K_g]:
+                    add[1].append("$")
+                elif press.key == player2binds[pg.K_j]:
+                    add[1].append("^")
+
         return add
 
 
@@ -43,6 +57,8 @@ class Character:
         self.left = left
         self.right = right
         self.movelist = MoveList
+        self.moving_right = False
+        self.moving_left = False
 
     def add_input(self, frame):
         add = []
@@ -100,27 +116,27 @@ class Character:
             i = 0
             for input in self.inputs:
 
-                if input == move[i]:
+                if input == move.command[i]:
                     i += 1
 
                     string += input
 
-                    if string == move:
+                    if string == move.command:
                         return move
-                    if i == len(move):
+                    if i == len(move.command):
                         break
 
     def do_move(self, move):
 
-        if move == "6":
-            self.x += 10
+        if move:
+            self.x += move.lunge
 
-        elif move == "4":
-            self.x -= 10
-        elif move == "26k":
-            print("special move")
+
 
     def fall(self):
+
+
+
 
         self.y -= self.vy
         self.vy -= 1

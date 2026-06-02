@@ -54,7 +54,7 @@ while True:
 
     inputs = game.get_inputs()
 
-    #player.add_input(frame)
+
 
     player.input_buffer.append([frame,inputs[0]])
     player.remove_input(frame)
@@ -62,7 +62,7 @@ while True:
     player.do_move(player.read_inputs())
     player.fall()
 
-    #player2.add_input(frame)
+
     player2.input_buffer.append([frame,inputs[1]])
     player2.remove_input(frame)
     player2.format_input()
