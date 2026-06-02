@@ -1,5 +1,5 @@
 import pygame as pg
-from pygame.examples.stars import move_stars
+
 
 
 class Move:
