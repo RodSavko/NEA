@@ -46,7 +46,7 @@ camera_length = 800
 frame = 1
 
 player = Character()
-player2 = Character(550,400,pg.K_u,pg.K_o)
+player2 = Character(550,400)
 
 game = GameLoop()
 
@@ -97,7 +97,7 @@ while True:
 
     frame +=1
     pg.display.update()
-    fps.tick(60)
+    fps.tick(30)
 
 
 
