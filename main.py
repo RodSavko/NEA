@@ -1,27 +1,21 @@
 import pygame as pg
 from classes import Character, GameLoop
 
+
 pg.init()
-screen = pg.display.set_mode((800,800))
+screen = pg.display.set_mode((1920,1080),pg.NOFRAME)
+
 fps = pg.time.Clock()
 
 
-#process
-#get player input - done
-#inputs can get added every frame - done
-#remove moves after a certain time or if they have been done - done
-#every frame need to check if the queue if moves can be done - done
 
-#check for moves:
-#have the input string - may need to reformat it
-#make movement first - left/right then do a jump
-#make an attack then
 
 #moves
-#1 jump
-#2 basic attack
-#3 crouch
+#1 jump  - kinda floaty
+#2 basic attack - not even half baked yet
+#3 crouch - ehhh
 # - make thew screen more normal - mayube basic fsm logic
+# fsm
 #4 normal attacks
 #5 grab
 #6 command normals
@@ -58,6 +52,11 @@ game = GameLoop()
 
 font = pg.font.Font(None, 36)
 
+background = pg.image.load("suzakicastle.webp").convert()
+background = pg.transform.scale(background,(1920,1080))
+
+
+
 while True:
 
     keys, held = game.get_inputs()
@@ -65,15 +64,16 @@ while True:
 
 
 
-
+    player.state = "idle"
     player.input_buffer.append([frame,keys[0]])
     player.movement(held[0])
     player.remove_input(frame)
     player.format_input()
-    player.do_move(player.read_inputs())
+    temp = player.do_move(player.read_inputs())
+
     player.fall()
 
-
+    player2.state = "idle"
     player2.input_buffer.append([frame,keys[1]])
     player2.movement(held[1])
     player2.remove_input(frame)
@@ -84,33 +84,31 @@ while True:
 
 
 
-    #focus = (player.x + (player2.x + player2.size_x))//2
-    #if focus < -1000:
-     #   focus = -1000
-   # if focus > 1000:
-    #    focus = 1000
-   # camera_x = focus - 400
 
 
 
 
 
+    player.apply_state()
+    player2.apply_state()
 
     player.update_hitbox(0)
     player2.update_hitbox(0)
 
-
-
-
-
-    screen.fill(black)
+    screen.blit(background,(0,0))
     pg.draw.rect(screen,(255,0,0),player.hitbox)
     pg.draw.rect(screen, (0, 0, 255), player2.hitbox)
+    if temp:
+        pg.draw.rect(screen,(255,0,255),temp)
+
 
     frame +=1
 
     fps_text = font.render(f"{fps}", True, (255, 255, 255))
+    state = font.render(f"state is {player.state}", True, (255,255,255))
     screen.blit(fps_text, (10, 10))
+    screen.blit(state,(10,50))
+
 
     pg.display.update()
     fps.tick(60)

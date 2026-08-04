@@ -1,17 +1,19 @@
 from MovesList import MoveList
 import pygame as pg
+from fsm import State
 
 pg.init()
 limit = 15
 
+state = State()
 
-player1binds = {pg.K_a : "4",pg.K_d : "6",pg.K_w:"8",pg.K_i:"i",pg.K_k:"k"}
-player2binds = {pg.K_g : "4",pg.K_j : "6",pg.K_y:"8",pg.K_b:"i",pg.K_n:"k"}
+player1binds = {pg.K_a : "4",pg.K_d : "6",pg.K_w:"8",pg.K_i:"i",pg.K_k:"k",pg.K_s:"2"}
+player2binds = {pg.K_g : "4",pg.K_j : "6",pg.K_y:"8",pg.K_b:"i",pg.K_n:"k",pg.K_h:"2"}
 allowed = player1binds|player2binds
 moving_right = False
 moving_left = False
 
-heldinputs = {pg.K_a,pg.K_d,pg.K_g,pg.K_j}
+heldinputs = {pg.K_a,pg.K_d,pg.K_g,pg.K_j,pg.K_s,pg.K_h}
 hold = {"4","6"}
 letgo = {"^","$"}
 
@@ -54,8 +56,12 @@ class GameLoop:
 
 
 
+
+
+
+
 class Character:
-    def __init__(self, x=100, y=100, size_x=150, size_y=300, vx=0, vy=0):
+    def __init__(self, x=100, y=100, size_x=150, size_y=400, vx=0, vy=0):
         self.input_buffer = []
         self.x = x
         self.y = y
@@ -70,6 +76,7 @@ class Character:
         self.moving_left = False
         self.state = "idle"
         self.direction = ""
+        self.facing = 1
         self.flagpos = -1
         self.flagpri = -1
 
@@ -102,6 +109,8 @@ class Character:
 
 
     def update_hitbox(self, camera_x):
+
+
         self.hitbox = pg.Rect(self.x - camera_x, self.y, self.size_x, self.size_y)
 
     def read_inputs(self):
@@ -131,20 +140,34 @@ class Character:
                             break
 
     def movement(self, held):
+
         if held:
             if held[0] == "6":
-                self.x += 5
+
+                self.direction = "6"
+                self.state = "walking"
             elif held[0] == "4":
-                self.x -= 5
+                self.direction = "4"
+                self.state = "walking"
+
+            if "2" in held:
+
+                self.state = "crouch"
+                self.y += 150
+
 
 
 
     def do_move(self, move):
 
         if move:
-            print(move.name, move.boost)
+
             self.x += move.lunge
             self.vy += move.boost
+
+            if move.hitbox:
+                self.state = "attack"
+                return  pg.Rect(self.x+150,self.y,move.hitbox[0],move.hitbox[1])
 
 
 
@@ -157,11 +180,17 @@ class Character:
 
         self.y -= self.vy
         self.vy -= 1
-        if self.y >= 500:
+        if self.y >= 1050-self.size_y:
             self.vy = 0
-            self.y = 500
+            self.y = 1050-self.size_y
 
-        if self.direction == "left":
-            self.x -= 5
-        elif self.direction == "right":
-            self.x += 5
+
+
+    def apply_state(self):
+
+        if self.state == "idle":
+            state.idle(self)
+        elif self.state == "crouch":
+            state.crouch(self)
+        elif self.state == "walking":
+            state.walking(self)
