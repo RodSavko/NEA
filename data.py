@@ -51,6 +51,7 @@ state_transitions = {
         "crouch_block",
         "attack_start_up",
         "hitstun",
+        "walking"
     ],
 
     "crouch_block": [

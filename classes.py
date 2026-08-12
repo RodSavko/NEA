@@ -1,6 +1,7 @@
 from MovesList import MoveList
 import pygame as pg
 from fsm import State
+from data import state_transitions
 
 pg.init()
 limit = 15
@@ -79,6 +80,11 @@ class Character:
         self.facing = 1
         self.flagpos = -1
         self.flagpri = -1
+        self.movequeue = []
+        self.currentattack = ""
+        self.statetime = 1
+        self.prevstate = "idle"
+
 
 
     def remove_input(self, frame):
@@ -135,7 +141,8 @@ class Character:
                         if string == move.command:
                             self.flagpos = i
                             self.flagpri = move.priority
-                            return move
+                            self.movequeue.append(move)
+                            break
                         if count == len(move.command):
                             break
 
@@ -145,30 +152,36 @@ class Character:
             if held[0] == "6":
 
                 self.direction = "6"
-                self.state = "walking"
+                self.fsm("walking")
             elif held[0] == "4":
                 self.direction = "4"
-                self.state = "walking"
+                self.fsm("walking")
+
 
             if "2" in held:
-
-                self.state = "crouch"
+                self.prevstate = self.state
+                self.fsm("crouch")
                 self.y += 150
 
+    def fsm(self,newstate):
+        if newstate != self.state:
+            if newstate in state_transitions[self.state]:
+                self.prevstate = self.state
+                self.state = newstate
 
 
 
-    def do_move(self, move):
+    def start_move(self):
 
-        if move:
+        if self.movequeue and not self.currentattack:
+            print("2")
+            self.currentattack = self.movequeue.pop(0)
+            self.fsm("startup")
 
-            self.x += move.lunge
-            self.vy += move.boost
 
-            if move.hitbox:
-                self.state = "attack"
-                return  pg.Rect(self.x+150,self.y,move.hitbox[0],move.hitbox[1])
 
+    def do_move(self):
+       pass
 
 
 
@@ -187,6 +200,11 @@ class Character:
 
 
     def apply_state(self):
+        if self.prevstate == self.state:
+            self.statetime += 1
+        else:
+            self.statetime = 1
+
 
         if self.state == "idle":
             state.idle(self)
@@ -194,3 +212,12 @@ class Character:
             state.crouch(self)
         elif self.state == "walking":
             state.walking(self)
+
+        if self.state == "startup":
+            state.startup(self)
+            print("4")
+        if self.state == "active":
+            print("3 ")
+            state.active(self)
+        if self.state == "recovery":
+            state.recovery(self)

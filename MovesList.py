@@ -3,22 +3,23 @@
 
 class Move:
 
-    def __init__(self, name, command, active, lunge,priority, boost = 0, hitbox = 0):
+    def __init__(self, name, command, priority,startup,active,recovery,hitbox = 0):
         self.name = name
         self.command = command
-        self.active = active
-        self.lunge = lunge
-        self.holding = False
         self.priority = priority
-        self.boost = boost
+        self.startup =  startup
+        self.active = active
+        self.recovery = recovery
         self.hitbox = hitbox
+        self.total = self.startup + self.active + self.recovery
 
-punch = Move("punch", "i", 6, 0,1,0,(100,100))
-kick = Move("kick", "k", 10, 0,1,0,(200,100))
-specialmove = Move("special", "26k", 30, 0,3,0,(300,300))
-dashleft = Move("dashleft","44",1,-400,2)
-dashright = Move("dashright","66",1,400,2)
-jump = Move("jump", "8",1,0,1,30)
+
+punch = Move("punch", "i", 1, 6,1,0,(100,100))
+kick = Move("kick", "k", 3, 10,1,0,(200,100))
+specialmove = Move("special", "26k", 3, 6,3,0,(300,300))
+dashleft = Move("dashleft","44",2,0,1,0)
+dashright = Move("dashright","66",2,0,1,0)
+jump = Move("jump", "8",1,0,1,0)
 
 
 MoveList = (specialmove, punch, kick,dashleft,dashright,jump)

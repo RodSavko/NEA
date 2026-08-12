@@ -64,13 +64,13 @@ while True:
 
 
 
-    player.state = "idle"
+
     player.input_buffer.append([frame,keys[0]])
     player.movement(held[0])
     player.remove_input(frame)
     player.format_input()
-    temp = player.do_move(player.read_inputs())
-
+    player.read_inputs()
+    player.start_move()
     player.fall()
 
     player2.state = "idle"
@@ -78,7 +78,7 @@ while True:
     player2.movement(held[1])
     player2.remove_input(frame)
     player2.format_input()
-    player2.do_move(player2.read_inputs())
+
     player2.fall()
 
 
@@ -98,14 +98,13 @@ while True:
     screen.blit(background,(0,0))
     pg.draw.rect(screen,(255,0,0),player.hitbox)
     pg.draw.rect(screen, (0, 0, 255), player2.hitbox)
-    if temp:
-        pg.draw.rect(screen,(255,0,255),temp)
+
 
 
     frame +=1
 
-    fps_text = font.render(f"{fps}", True, (255, 255, 255))
-    state = font.render(f"state is {player.state}", True, (255,255,255))
+    fps_text = font.render(f"{fps} ", True, (255, 255, 255))
+    state = font.render(f"state is {player.state} + prev state is {player.prevstate}", True, (255,255,255))
     screen.blit(fps_text, (10, 10))
     screen.blit(state,(10,50))
 

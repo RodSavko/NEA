@@ -17,11 +17,25 @@ class State:
         else:
             print("error: no direction when moving")
 
-    def attack(self,player,move):
+    def startup(self,player):
+        if player.statetime > player.currentattack.startup:
+            player.prevstate = "startup"
+            player.statetime = "1"
+            player.state = "active"
 
-        hitbox = pg.Rect(self.x + 150, self.y, move.hitbox[0], move.hitbox[1])
+    def active(self,player):
+        if player.statetime > player.currentattack.active:
+            player.prevstate = "active"
+            player.statetime = "1"
+            player.state = "recovery"
+        else:
+            pg.draw.rect(screen, (255, 0, 255), (player.x+150,player.y, player.move.hitbox[0], player.move.hitbox[1]))
 
-
+    def recovery(self,player):
+        if player.statetime > player.currentattack.recovery:
+            player.prevstate = "recovery"
+            player.statetime = "1"
+            player.state = "idle"
 
 
 
