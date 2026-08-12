@@ -89,7 +89,7 @@ while True:
 
 
 
-    player.apply_state()
+    temp = player.apply_state()
     player2.apply_state()
 
     player.update_hitbox(0)
@@ -99,12 +99,15 @@ while True:
     pg.draw.rect(screen,(255,0,0),player.hitbox)
     pg.draw.rect(screen, (0, 0, 255), player2.hitbox)
 
+    if temp:
+        pg.draw.rect(screen,(255,100,255),temp)
 
 
     frame +=1
 
+
     fps_text = font.render(f"{fps} ", True, (255, 255, 255))
-    state = font.render(f"state is {player.state} + prev state is {player.prevstate}", True, (255,255,255))
+    state = font.render(f"state is {player.state} for {player.statetime} frames / {(player.statetime/60):.2g} s", True, (255,255,255))
     screen.blit(fps_text, (10, 10))
     screen.blit(state,(10,50))
 

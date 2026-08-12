@@ -1,6 +1,6 @@
 state_transitions = {
     "idle": [
-        "attack_start_up",
+        "startup",
         "crouch",
         "walking",
         "jump",
@@ -49,9 +49,8 @@ state_transitions = {
     "crouch": [
         "idle",
         "crouch_block",
-        "attack_start_up",
+        "startup",
         "hitstun",
-        "walking"
     ],
 
     "crouch_block": [
@@ -65,22 +64,22 @@ state_transitions = {
         "jump",
         "idle",
         "hitstun",
-        "attack_start_up",
+        "startup",
         "crouch",
     ],
 
-    "attack_start_up": [
-        "attack_active",
+    "startup": [
+        "active",
         "hitstun",
     ],
 
-    "attack_active": [
-        "attack_recovery",
+    "active": [
+        "recovery",
         "hitstun",
     ],
 
-    "attack_recovery": [
-        "attack_start_up",
+    "recovery": [
+        "startup",
         "idle",
         "hitstun",
     ],

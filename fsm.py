@@ -1,3 +1,4 @@
+import pygame as pg
 class State:
     def __init__(self,animation = 0):
         self.animation = animation
@@ -7,6 +8,8 @@ class State:
 
     def crouch(self,player):
         player.size_y = 250
+        if player.statetime == 1:
+            player.y += 150
 
     def walking(self,player):
 
@@ -18,24 +21,20 @@ class State:
             print("error: no direction when moving")
 
     def startup(self,player):
+
         if player.statetime > player.currentattack.startup:
-            player.prevstate = "startup"
-            player.statetime = "1"
-            player.state = "active"
+            player.fsm("active")
 
     def active(self,player):
         if player.statetime > player.currentattack.active:
-            player.prevstate = "active"
-            player.statetime = "1"
-            player.state = "recovery"
+            player.fsm("active")
         else:
-            pg.draw.rect(screen, (255, 0, 255), (player.x+150,player.y, player.move.hitbox[0], player.move.hitbox[1]))
+            return (player.x + 150, player.y, player.currentattack.hitbox[0], player.currentattack.hitbox[1])
 
     def recovery(self,player):
         if player.statetime > player.currentattack.recovery:
-            player.prevstate = "recovery"
-            player.statetime = "1"
-            player.state = "idle"
+            player.fsm("idle")
+            player.move = ""
 
 
 

@@ -159,13 +159,15 @@ class Character:
 
 
             if "2" in held:
-                self.prevstate = self.state
-                self.fsm("crouch")
-                self.y += 150
 
+                self.fsm("crouch")
+
+        else:
+            self.fsm("idle")
     def fsm(self,newstate):
         if newstate != self.state:
             if newstate in state_transitions[self.state]:
+                self.statetime = 1
                 self.prevstate = self.state
                 self.state = newstate
 
@@ -200,10 +202,7 @@ class Character:
 
 
     def apply_state(self):
-        if self.prevstate == self.state:
-            self.statetime += 1
-        else:
-            self.statetime = 1
+
 
 
         if self.state == "idle":
@@ -218,6 +217,8 @@ class Character:
             print("4")
         if self.state == "active":
             print("3 ")
-            state.active(self)
+            return state.active(self)
         if self.state == "recovery":
             state.recovery(self)
+
+        self.statetime += 1
