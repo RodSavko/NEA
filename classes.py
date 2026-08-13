@@ -84,6 +84,7 @@ class Character:
         self.currentattack = ""
         self.statetime = 1
         self.prevstate = "idle"
+        self.attack = ""
 
 
 
@@ -163,11 +164,12 @@ class Character:
                 self.fsm("crouch")
 
         else:
-            self.fsm("idle")
+            if not self.currentattack:
+                self.fsm("idle")
     def fsm(self,newstate):
         if newstate != self.state:
             if newstate in state_transitions[self.state]:
-                self.statetime = 1
+                self.statetime = 0
                 self.prevstate = self.state
                 self.state = newstate
 
@@ -176,8 +178,9 @@ class Character:
     def start_move(self):
 
         if self.movequeue and not self.currentattack:
-            print("2")
+
             self.currentattack = self.movequeue.pop(0)
+            print(self.currentattack, "isdjfasf")
             self.fsm("startup")
 
 
@@ -214,10 +217,11 @@ class Character:
 
         if self.state == "startup":
             state.startup(self)
-            print("4")
+
         if self.state == "active":
-            print("3 ")
-            return state.active(self)
+            self.attack =  state.active(self)
+
+
         if self.state == "recovery":
             state.recovery(self)
 

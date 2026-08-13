@@ -15,17 +15,20 @@ fps = pg.time.Clock()
 #2 basic attack - not even half baked yet
 #3 crouch - ehhh
 # - make thew screen more normal - mayube basic fsm logic
-# fsm
+# fsm - done fuck yeah
 #4 normal attacks
-#5 grab
+#5 - collision checks
 #6 command normals
 #7 specials
-#8 supers
+#8 grab
+#9 supers
 
 #need to make the arena
 # camera focus
 # coordinates
 # camera move
+
+#need to fix jump - three directional jump = plus all teh fucking air logic
 
 #should change how dashes work - instead of instant teleport make a velocity boost
 
@@ -73,13 +76,6 @@ while True:
     player.start_move()
     player.fall()
 
-    player2.state = "idle"
-    player2.input_buffer.append([frame,keys[1]])
-    player2.movement(held[1])
-    player2.remove_input(frame)
-    player2.format_input()
-
-    player2.fall()
 
 
 
@@ -88,25 +84,24 @@ while True:
 
 
 
+    player.apply_state()
 
-    temp = player.apply_state()
-    player2.apply_state()
 
     player.update_hitbox(0)
-    player2.update_hitbox(0)
+
 
     screen.blit(background,(0,0))
     pg.draw.rect(screen,(255,0,0),player.hitbox)
-    pg.draw.rect(screen, (0, 0, 255), player2.hitbox)
 
-    if temp:
-        pg.draw.rect(screen,(255,100,255),temp)
+
+    if player.attack:
+        pg.draw.rect(screen,(255,100,255),player.attack)
 
 
     frame +=1
 
 
-    fps_text = font.render(f"{fps} ", True, (255, 255, 255))
+    fps_text = font.render(f"{fps} ,  game frame is {frame}", True, (255, 255, 255))
     state = font.render(f"state is {player.state} for {player.statetime} frames / {(player.statetime/60):.2g} s", True, (255,255,255))
     screen.blit(fps_text, (10, 10))
     screen.blit(state,(10,50))

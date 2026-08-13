@@ -27,14 +27,19 @@ class State:
 
     def active(self,player):
         if player.statetime > player.currentattack.active:
-            player.fsm("active")
+            player.fsm("recovery")
+
         else:
-            return (player.x + 150, player.y, player.currentattack.hitbox[0], player.currentattack.hitbox[1])
+            player.x += player.currentattack.lungex
+            player.vy = player.currentattack.lungey
+            if player.currentattack.hitbox:
+                return (player.x + 150, player.y, player.currentattack.hitbox[0], player.currentattack.hitbox[1])
 
     def recovery(self,player):
         if player.statetime > player.currentattack.recovery:
+            print("recovery done", player.currentattack.recovery)
             player.fsm("idle")
-            player.move = ""
+            player.currentattack = ""
 
 
 
