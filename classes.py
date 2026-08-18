@@ -85,7 +85,8 @@ class Character:
         self.statetime = 1
         self.prevstate = "idle"
         self.attack = ""
-
+        self.facing = 1
+        self.keys = 0
 
 
     def remove_input(self, frame):
@@ -100,6 +101,17 @@ class Character:
             self.flagpos = -1
             self.flagpri = -1
 
+
+    def directionalise_inputs(self,keys):
+        for i in range(len(keys)):
+            if keys[i] == "4":
+                if self.facing == -1:
+                    keys[i] = "6"
+                    continue
+            elif keys[i] == "6":
+                if self.facing == -1:
+                    keys[i] = "4"
+        self.keys = keys
     def format_input(self):
         queue = ""
 
@@ -185,8 +197,12 @@ class Character:
 
 
 
-    def do_move(self):
-       pass
+    def check_facing(self,enemy):
+        if self.x > enemy.x:
+            self.facing = -1 #facing left
+        elif self.x < enemy.x:
+            self.facing = 1 #facing right
+
 
 
 

@@ -30,10 +30,13 @@ class State:
             player.fsm("recovery")
 
         else:
-            player.x += player.currentattack.lungex
+            player.x += player.currentattack.lungex * player.facing
             player.vy = player.currentattack.lungey
             if player.currentattack.hitbox:
-                return (player.x + 150, player.y, player.currentattack.hitbox[0], player.currentattack.hitbox[1])
+                if player.facing == 1:
+                    return (player.x + 150, player.y, player.currentattack.hitbox[0], player.currentattack.hitbox[1])
+                else:
+                    return (player.x - player.currentattack.hitbox[0],player.y,player.currentattack.hitbox[0], player.currentattack.hitbox[1])
 
     def recovery(self,player):
         if player.statetime > player.currentattack.recovery:
