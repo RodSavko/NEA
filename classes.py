@@ -3,56 +3,11 @@ import pygame as pg
 from fsm import State
 from data import state_transitions
 
+
 pg.init()
 limit = 15
 
 state = State()
-
-player1binds = {pg.K_a : "4",pg.K_d : "6",pg.K_w:"8",pg.K_i:"i",pg.K_k:"k",pg.K_s:"2"}
-player2binds = {pg.K_g : "4",pg.K_j : "6",pg.K_y:"8",pg.K_b:"i",pg.K_n:"k",pg.K_h:"2"}
-allowed = player1binds|player2binds
-moving_right = False
-moving_left = False
-
-heldinputs = {pg.K_a,pg.K_d,pg.K_g,pg.K_j,pg.K_s,pg.K_h}
-hold = {"4","6"}
-letgo = {"^","$"}
-
-
-class GameLoop:
-    def __init__(self, inputs = []):
-        self.inputs = inputs
-
-    def get_inputs(self):
-        add = [[],[]]
-        add2 = [[],[]]
-        for press in pg.event.get():
-            if press.type == pg.QUIT:
-                pg.quit()
-            elif press.type == pg.KEYDOWN:
-                if press.key in player1binds:
-
-                    add[0].append(player1binds[press.key])
-
-                elif press.key in player2binds:
-                    add[1].append(player2binds[press.key])
-
-        hold = pg.key.get_pressed()
-
-        for i in heldinputs:
-
-            if hold[i] and i in player1binds:
-                add2[0].append(player1binds[i])
-            if hold[i] and i in player2binds:
-                add2[1].append(player2binds[i])
-
-
-
-
-
-
-
-        return add,add2
 
 
 
@@ -68,7 +23,7 @@ class Character:
         self.y = y
         self.size_x = size_x
         self.size_y = size_y
-        self.hitbox = pg.Rect(self.x, self.y, self.size_x, self.size_y)
+        self.hurtbox = pg.Rect(self.x, self.y, self.size_x, self.size_y)
         self.inputs = []
         self.vy = vy
         self.vx = vx
@@ -87,6 +42,12 @@ class Character:
         self.attack = ""
         self.facing = 1
         self.keys = 0
+        self.currentattackfacing = 1
+        self.currentattackhit = False
+        self.hitbox = 0
+        self.health = 1000
+        self.attackhashit = False
+        self.stun = 0
 
 
     def remove_input(self, frame):
@@ -101,7 +62,6 @@ class Character:
             self.flagpos = -1
             self.flagpri = -1
 
-
     def directionalise_inputs(self,keys):
         for i in range(len(keys)):
             if keys[i] == "4":
@@ -112,6 +72,7 @@ class Character:
                 if self.facing == -1:
                     keys[i] = "4"
         self.keys = keys
+
     def format_input(self):
         queue = ""
 
@@ -126,11 +87,13 @@ class Character:
 
         self.inputs = queue
 
+    def update_hurtbox(self, camera_x):
+        self.hurtbox = pg.Rect(self.x - camera_x, self.y, self.size_x, self.size_y)
+        if self.state != "active":
+            self.hitbox = 0
 
-    def update_hitbox(self, camera_x):
 
 
-        self.hitbox = pg.Rect(self.x - camera_x, self.y, self.size_x, self.size_y)
 
     def read_inputs(self):
         if self.inputs:
@@ -154,7 +117,7 @@ class Character:
                         if string == move.command:
                             self.flagpos = i
                             self.flagpri = move.priority
-                            self.movequeue.append(move)
+                            self.movequeue.append([move, self.facing])
                             break
                         if count == len(move.command):
                             break
@@ -176,8 +139,9 @@ class Character:
                 self.fsm("crouch")
 
         else:
-            if not self.currentattack:
+            if not self.currentattack and not self.stun:
                 self.fsm("idle")
+
     def fsm(self,newstate):
         if newstate != self.state:
             if newstate in state_transitions[self.state]:
@@ -185,27 +149,19 @@ class Character:
                 self.prevstate = self.state
                 self.state = newstate
 
-
-
     def start_move(self):
 
         if self.movequeue and not self.currentattack:
 
-            self.currentattack = self.movequeue.pop(0)
-            print(self.currentattack, "isdjfasf")
+            self.currentattack, self.currentattackfacing = self.movequeue.pop(0)
+
             self.fsm("startup")
-
-
 
     def check_facing(self,enemy):
         if self.x > enemy.x:
             self.facing = -1 #facing left
         elif self.x < enemy.x:
             self.facing = 1 #facing right
-
-
-
-
 
     def fall(self):
 
@@ -218,10 +174,9 @@ class Character:
             self.vy = 0
             self.y = 1050-self.size_y
 
-
-
     def apply_state(self):
-
+        if self.stun:
+            self.stun -= 1
 
 
         if self.state == "idle":
@@ -240,5 +195,20 @@ class Character:
 
         if self.state == "recovery":
             state.recovery(self)
+        if self.state == "hitstun":
+            state.hitstun(self)
+
+
 
         self.statetime += 1
+
+    def checkifgothit(self,enemy):
+        if enemy.hitbox and not enemy.currentattackhit:
+            if self.hurtbox.colliderect(enemy.hitbox):
+                self.stun = enemy.currentattack.stun
+                self.health -= enemy.currentattack.damage
+                self.x += enemy.currentattack.knockbackx * self.facing * -1
+                self.y -= enemy.currentattack.knockbacky * 10
+                enemy.currentattackhit = True
+                self.fsm("hitstun")
+

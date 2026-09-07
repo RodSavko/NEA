@@ -1,5 +1,6 @@
 import pygame as pg
-from classes import Character, GameLoop
+from classes import Character
+from gameloop import GameLoop
 
 
 pg.init()
@@ -30,7 +31,7 @@ fps = pg.time.Clock()
 
 #need to fix jump - three directional jump = plus all teh fucking air logic
 
-#should change how dashes work - instead of instant teleport make a velocity boost
+#should change how dashes work - instead of instant teleport make a velocity boost - doneeee
 
 
 #the plan for inputs - when getting the inmputs store them in two separate lists per player, one for click and other is hold down, remove the release for clicks, and have the movement be held down, so when reading inpujts, check teh click list for moves and only then the hold list for the movemnt directions, make it modular so it can do command normals type shit,
@@ -51,7 +52,9 @@ frame = 1
 player = Character()
 player2 = Character(550,400)
 
-game = GameLoop()
+
+
+game = GameLoop((player,player2))
 
 font = pg.font.Font(None, 36)
 
@@ -75,6 +78,7 @@ while True:
     player.fall()
 
     player2.check_facing(player)
+    player.directionalise_inputs(keys[1])
     player2.input_buffer.append([frame,keys[1]])
     player2.movement(held[1])
     player2.remove_input(frame)
@@ -94,14 +98,18 @@ while True:
     player.apply_state()
     player2.apply_state()
 
+    player.checkifgothit(player2)
+    player2.checkifgothit(player)
 
-    player.update_hitbox(0)
-    player2.update_hitbox(0)
+    player.update_hurtbox(0)
+    player2.update_hurtbox(0)
+
+
 
 
     screen.blit(background,(0,0))
-    pg.draw.rect(screen,(255,0,0),player.hitbox)
-    pg.draw.rect(screen, (0, 0, 255), player2.hitbox)
+    pg.draw.rect(screen,(255,0,0),player.hurtbox)
+    pg.draw.rect(screen, (0, 0, 255), player2.hurtbox)
 
 
     if player.attack:
@@ -112,10 +120,14 @@ while True:
     frame +=1
 
 
-    fps_text = font.render(f"{fps} ,  game frame is {frame}, facing {player.facing, player2.facing}", True, (255, 255, 255))
-    state = font.render(f"state is {player.state} for {player.statetime} frames / {(player.statetime/60):.2g} s, {keys[0],held[0]}", True, (255,255,255))
+
+    fps_text = font.render(f"{fps} ,  game frame is {frame}, and {game.hitboxes}, and {player.attack}, and {player.health}/{player2.health}, {player2.stun}", True, (255, 255, 255))
+    state = font.render(f"state is {player.state} for {player.statetime} frames / {(player.statetime/60):.2g} s, {player.hitbox}", True, (255,255,255))
+    sstate = font.render(f"{keys}",True, (255, 255, 255))
+
     screen.blit(fps_text, (10, 10))
     screen.blit(state,(10,50))
+    screen.blit(sstate,(10,90))
 
 
     pg.display.update()

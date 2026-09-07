@@ -1,7 +1,8 @@
-import pygame as pg
+
 class State:
     def __init__(self,animation = 0):
         self.animation = animation
+
 
     def idle(self,player):
         player.size_y = 400
@@ -29,21 +30,36 @@ class State:
         if player.statetime > player.currentattack.active:
             player.fsm("recovery")
 
+
         else:
-            player.x += player.currentattack.lungex * player.facing
-            player.vy = player.currentattack.lungey
+
+
+
+
+            player.x += player.currentattack.lungex * player.currentattackfacing
+
+            if player.currentattack.lungey: player.vy = player.currentattack.lungey
             if player.currentattack.hitbox:
-                if player.facing == 1:
-                    return (player.x + 150, player.y, player.currentattack.hitbox[0], player.currentattack.hitbox[1])
+                if player.statetime == 1:
+                    player.currentattackhit = False
+
+
+                if player.currentattackfacing == 1:
+                    hitbox = (player.x + 150, player.y, player.currentattack.hitbox[0], player.currentattack.hitbox[1])
                 else:
-                    return (player.x - player.currentattack.hitbox[0],player.y,player.currentattack.hitbox[0], player.currentattack.hitbox[1])
+                    hitbox = (player.x - player.currentattack.hitbox[0],player.y,player.currentattack.hitbox[0], player.currentattack.hitbox[1])
+                if player.statetime == 1:
+                    player.hitbox = hitbox
+                return hitbox
 
     def recovery(self,player):
         if player.statetime > player.currentattack.recovery:
-            print("recovery done", player.currentattack.recovery)
             player.fsm("idle")
             player.currentattack = ""
 
+    def hitstun(self,player):
+        if player.stun == 0:
+            player.fsm("idle")
 
 
 
