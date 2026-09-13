@@ -1,3 +1,4 @@
+from sprites import idle_frames
 
 class State:
     def __init__(self,animation = 0):
@@ -5,7 +6,13 @@ class State:
 
 
     def idle(self,player):
+
         player.size_y = 400
+        frame = ((player.statetime//6) % len(idle_frames))
+        print(frame)
+        image = idle_frames[frame]
+
+        player.sprite = image
 
     def crouch(self,player):
         player.size_y = 250

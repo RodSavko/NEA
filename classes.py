@@ -48,6 +48,8 @@ class Character:
         self.health = 1000
         self.attackhashit = False
         self.stun = 0
+        self.sprite = (0, 0, 40, 57),
+        self.visual = 0
 
 
     def remove_input(self, frame):

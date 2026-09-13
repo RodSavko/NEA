@@ -59,6 +59,8 @@ game = GameLoop((player,player2))
 font = pg.font.Font(None, 36)
 
 background = pg.image.load("suzakicastle.webp").convert()
+spritesheet = pg.image.load("ryo-spritesheet.png").convert()
+spritesheet.set_colorkey((255,0,255))
 background = pg.transform.scale(background,(1920,1080))
 
 
@@ -105,10 +107,15 @@ while True:
     player2.update_hurtbox(0)
 
 
+    visual = spritesheet.subsurface(player.sprite)
+    visual = pg.transform.scale(visual,(150,400))
 
+    if player.facing == 1:
+        visual = pg.transform.flip(visual,True,False)
 
     screen.blit(background,(0,0))
-    pg.draw.rect(screen,(255,0,0),player.hurtbox)
+    #pg.draw.rect(screen,(255,0,0),player.hurtbox)
+    screen.blit(visual,(player.x,player.y))
     pg.draw.rect(screen, (0, 0, 255), player2.hurtbox)
 
 
@@ -123,7 +130,7 @@ while True:
 
     fps_text = font.render(f"{fps} ,  game frame is {frame}, and {game.hitboxes}, and {player.attack}, and {player.health}/{player2.health}, {player2.stun}", True, (255, 255, 255))
     state = font.render(f"state is {player.state} for {player.statetime} frames / {(player.statetime/60):.2g} s, {player.hitbox}", True, (255,255,255))
-    sstate = font.render(f"{keys}",True, (255, 255, 255))
+    sstate = font.render(f"{keys},{player.sprite}",True, (255, 255, 255))
 
     screen.blit(fps_text, (10, 10))
     screen.blit(state,(10,50))
