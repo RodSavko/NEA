@@ -1,4 +1,4 @@
-from sprites import idle_frames
+from sprites import idle_frames,walk_frames
 
 class State:
     def __init__(self,animation = 0):
@@ -8,10 +8,8 @@ class State:
     def idle(self,player):
 
         player.size_y = 400
-        frame = ((player.statetime//6) % len(idle_frames))
-        print(frame)
+        frame = ((player.statetime//5) % len(idle_frames))
         image = idle_frames[frame]
-
         player.sprite = image
 
     def crouch(self,player):
@@ -27,6 +25,9 @@ class State:
             player.x -= 5
         else:
             print("error: no direction when moving")
+        frame = ((player.statetime//6) % len(walk_frames))
+        image = walk_frames[frame]
+        player.sprite = image
 
     def startup(self,player):
 

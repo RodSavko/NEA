@@ -50,7 +50,7 @@ camera_length = 800
 frame = 1
 
 player = Character()
-player2 = Character(550,400)
+player2 = Character(1550,400)
 
 
 
@@ -108,11 +108,11 @@ while True:
 
 
     visual = spritesheet.subsurface(player.sprite)
-    visual = pg.transform.scale(visual,(150,400))
+    visual = pg.transform.scale(visual,(player.size_x,player.size_y))
 
     if player.facing == 1:
         visual = pg.transform.flip(visual,True,False)
-
+    #visual.set_alpha(128)
     screen.blit(background,(0,0))
     #pg.draw.rect(screen,(255,0,0),player.hurtbox)
     screen.blit(visual,(player.x,player.y))
