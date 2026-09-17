@@ -1,8 +1,6 @@
 import pygame as pg
 from classes import Character
 from gameloop import GameLoop
-
-
 pg.init()
 screen = pg.display.set_mode((1920,1080),pg.NOFRAME)
 
@@ -16,7 +14,7 @@ fps = pg.time.Clock()
 #2 basic attack - not even half baked yet
 #3 crouch - ehhh
 # - make thew screen more normal - mayube basic fsm logic
-# fsm - done fuck yeah
+# fsm - done yeah
 #4 normal attacks - i mean kinda need to get the actual frame data
 #5 - collision checks
 #6 command normals
@@ -29,13 +27,13 @@ fps = pg.time.Clock()
 # coordinates
 # camera move
 
-#need to fix jump - three directional jump = plus all teh fucking air logic
+#need to fix jump - three directional jump = plus all teh  air logic
 
 #should change how dashes work - instead of instant teleport make a velocity boost - doneeee
 
 
 #the plan for inputs - when getting the inmputs store them in two separate lists per player, one for click and other is hold down, remove the release for clicks, and have the movement be held down, so when reading inpujts, check teh click list for moves and only then the hold list for the movemnt directions, make it modular so it can do command normals type shit,
-# i fuckin did it
+# i did it
 
 #so the input handling is done for now
 
@@ -109,14 +107,20 @@ while True:
 
     visual = spritesheet.subsurface(player.sprite)
     visual = pg.transform.scale(visual,(player.size_x,player.size_y))
+    
+    visual2 = spritesheet.subsurface(player2.sprite)
+    visual2 = pg.transform.scale(visual2,(player2.size_x,player2.size_y))
 
     if player.facing == 1:
         visual = pg.transform.flip(visual,True,False)
+    if player2.facing == 1:
+        visual2 = pg.transform.flip(visual,True,False)
     #visual.set_alpha(128)
     screen.blit(background,(0,0))
     #pg.draw.rect(screen,(255,0,0),player.hurtbox)
     screen.blit(visual,(player.x,player.y))
-    pg.draw.rect(screen, (0, 0, 255), player2.hurtbox)
+    screen.blit(visual2,(player2.x,player2.y))
+    #pg.draw.rect(screen, (0, 0, 255), player2.hurtbox)
 
 
     if player.attack:
@@ -130,7 +134,7 @@ while True:
 
     fps_text = font.render(f"{fps} ,  game frame is {frame}, and {game.hitboxes}, and {player.attack}, and {player.health}/{player2.health}, {player2.stun}", True, (255, 255, 255))
     state = font.render(f"state is {player.state} for {player.statetime} frames / {(player.statetime/60):.2g} s, {player.hitbox}", True, (255,255,255))
-    sstate = font.render(f"{keys},{player.sprite}",True, (255, 255, 255))
+    sstate = font.render(f"{keys},{player.sprite}, {player2.sprite}/{player2.state}",True, (255, 255, 255))
 
     screen.blit(fps_text, (10, 10))
     screen.blit(state,(10,50))
