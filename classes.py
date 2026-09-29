@@ -17,7 +17,7 @@ state = State()
 
 
 class Character:
-    def __init__(self, x=100, y=100, size_x=150, size_y=400, vx=0, vy=0):
+    def __init__(self, x=100, y=100, size_x=250, size_y=400, vx=0, vy=0):
         self.input_buffer = []
         self.x = x
         self.y = y
@@ -116,7 +116,7 @@ class Character:
 
                         string += self.inputs[i]
 
-                        if string == move.command:
+                        if string == move.command and self.state in move.startstates:
                             self.flagpos = i
                             self.flagpri = move.priority
                             self.movequeue.append([move, self.facing])

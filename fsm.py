@@ -1,4 +1,4 @@
-from sprites import idle_frames,walk_frames
+from sprites import idle_frames,walk_frames,hitstun_frames
 
 class State:
     def __init__(self,animation = 0):
@@ -39,7 +39,11 @@ class State:
             player.fsm("recovery")
 
 
+
+
+
         else:
+
 
 
 
@@ -53,12 +57,16 @@ class State:
 
 
                 if player.currentattackfacing == 1:
-                    hitbox = (player.x + 150, player.y, player.currentattack.hitbox[0], player.currentattack.hitbox[1])
+                    hitbox = (player.x + player.size_x, player.y + player.currentattack.y_offset, player.currentattack.hitbox[0] * 3, player.currentattack.hitbox[1] * 3)
                 else:
-                    hitbox = (player.x - player.currentattack.hitbox[0],player.y,player.currentattack.hitbox[0], player.currentattack.hitbox[1])
+                    hitbox = (player.x - player.currentattack.hitbox[0] * 3,player.y + player.currentattack.y_offset,player.currentattack.hitbox[0] * 3, player.currentattack.hitbox[1] * 3)
                 if player.statetime == 1:
                     player.hitbox = hitbox
                 return hitbox
+        if player.currentattack.name == "dash forwards":
+            frame = ((player.statetime//2) % len(walk_frames))
+            image = walk_frames[frame]
+            player.sprite = image
 
     def recovery(self,player):
         if player.statetime > player.currentattack.recovery:
@@ -69,5 +77,8 @@ class State:
         if player.stun == 0:
             player.fsm("idle")
 
+        frame = ((player.statetime//6) % len(hitstun_frames))
+        image = hitstun_frames[frame]
+        player.sprite = image
 
 

@@ -1,7 +1,7 @@
 import pygame as pg
 
-player1binds = {pg.K_a : "4",pg.K_d : "6",pg.K_w:"8",pg.K_i:"i",pg.K_k:"k",pg.K_s:"2"}
-player2binds = {pg.K_g : "4",pg.K_j : "6",pg.K_y:"8",pg.K_b:"i",pg.K_n:"k",pg.K_h:"2"}
+player1binds = {pg.K_a : "4",pg.K_d : "6",pg.K_w:"8",pg.K_i:"i",pg.K_k:"k",pg.K_j:"j", pg.K_l:"l",pg.K_s:"2"}
+player2binds = {pg.K_f : "4",pg.K_h : "6",pg.K_t:"8",pg.K_c:"i",pg.K_v:"j",pg.K_b:"k",pg.K_n:"l",pg.K_h:"2"}
 
 
 heldinputs = {pg.K_a,pg.K_d,pg.K_g,pg.K_j,pg.K_s,pg.K_h}
