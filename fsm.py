@@ -1,16 +1,20 @@
-from sprites import idle_frames,walk_frames,hitstun_frames
+import sprites
+
+
+
 
 class State:
     def __init__(self,animation = 0):
         self.animation = animation
 
 
+
+
+
     def idle(self,player):
 
         player.size_y = 400
-        frame = ((player.statetime//5) % len(idle_frames))
-        image = idle_frames[frame]
-        player.sprite = image
+        player.sprite = sprites.animation(player,sprites.statesprites)
 
     def crouch(self,player):
         player.size_y = 250
@@ -25,9 +29,7 @@ class State:
             player.x -= 5
         else:
             print("error: no direction when moving")
-        frame = ((player.statetime//6) % len(walk_frames))
-        image = walk_frames[frame]
-        player.sprite = image
+
 
     def startup(self,player):
 
@@ -63,22 +65,21 @@ class State:
                 if player.statetime == 1:
                     player.hitbox = hitbox
                 return hitbox
-        if player.currentattack.name == "dash forwards":
-            frame = ((player.statetime//2) % len(walk_frames))
-            image = walk_frames[frame]
-            player.sprite = image
 
     def recovery(self,player):
         if player.statetime > player.currentattack.recovery:
             player.fsm("idle")
             player.currentattack = ""
 
+        elif player.currentattack.name == "Standing Light Punch":
+            frame = ((player.attacktime) % len(light_punch_frames))
+            image = light_punch_frames[frame]
+            player.sprite = image
+
     def hitstun(self,player):
         if player.stun == 0:
             player.fsm("idle")
 
-        frame = ((player.statetime//6) % len(hitstun_frames))
-        image = hitstun_frames[frame]
-        player.sprite = image
+
 
 

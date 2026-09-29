@@ -2,7 +2,7 @@ from MovesList import MoveList
 import pygame as pg
 from fsm import State
 from data import state_transitions
-
+import sprites
 
 pg.init()
 limit = 15
@@ -48,8 +48,9 @@ class Character:
         self.health = 1000
         self.attackhashit = False
         self.stun = 0
-        self.sprite = (0, 0, 40, 57),
+        self.sprite = (0, 0, 40, 57)
         self.visual = 0
+        self.attacktime = 0
 
 
     def remove_input(self, frame):
@@ -202,8 +203,16 @@ class Character:
 
 
 
-        self.statetime += 1
+        self.sprite = sprites.animation(self,sprites.statesprites)
+        if not self.sprite:
+            self.sprite = (0, 0, 40, 57),
 
+
+        self.statetime += 1
+        if self.currentattack:
+            self.attacktime += 1
+        else:
+            self.attacktime = 0
     def checkifgothit(self,enemy):
         if enemy.hitbox and not enemy.currentattackhit:
             if self.hurtbox.colliderect(enemy.hitbox):

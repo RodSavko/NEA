@@ -45,6 +45,8 @@ used = set()
 
 black = (0,0,0)
 
+sprite_scale = 3.3
+
 camera_length = 800
 
 frame = 1
@@ -109,7 +111,8 @@ while True:
     screen.blit(background, (0, 0))
 
     visual = spritesheet.subsurface(player.sprite)
-    visual = pg.transform.scale(visual,(player.size_x,player.size_y))
+
+    visual = pg.transform.scale(visual,(player.sprite[2] * sprite_scale,player.sprite[3] * sprite_scale))
 
     visual2 = spritesheet.subsurface(player2.sprite)
     visual2 = pg.transform.scale(visual2, (player2.size_x, player2.size_y))

@@ -1,3 +1,11 @@
+def animation(player,statesprites):
+    if player.state in statesprites:
+        frame = (player.statetime//5) % len(statesprites[player.state])
+        image = statesprites[player.state][frame]
+        return image
+
+
+
 idle_frames = [
     (1,   12, 78, 101),
     (80,  11, 78, 102),
@@ -31,3 +39,17 @@ hitstun_frames = [
     (953,  3354, 79,   95),
     (1033, 3351, 104,  98),
 ]
+
+light_punch_frames = [
+    (1730, 1430, 78, 104),  # guard (last frame, row 14)
+    (1,    1537, 121, 105), # fist snaps out to full extension
+    (123,  1537, 114, 105), # held/slight retract
+    (238,  1537, 93,  105), # retracting
+    (332,  1537, 78,  105), # back to guard
+]
+
+statesprites = {
+    "idle" : idle_frames,
+    "walking" : walk_frames,
+    "hitstun" : hitstun_frames
+}

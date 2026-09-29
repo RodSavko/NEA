@@ -3,7 +3,7 @@
 
 class Move:
 
-    def __init__(self, name, command, priority,startup,active,recovery,hitbox = 0, lungex = 0, lungey = 0, knockbackx=0,knockbacky=0,damage=0,stun=0, y_offset = 50, startstates = ("idle","crouch","walking"), jugglecost = 0):
+    def __init__(self, name, command, priority,startup,active,recovery,hitbox = 0, lungex = 0, lungey = 0, knockbackx=0,knockbacky=0,damage=0,stun=0, y_offset = 50, startstates = ("idle","crouch","walking"), jugglecost = 0,):
         self.name = name
         self.command = command
         self.priority = priority
@@ -31,7 +31,7 @@ st_lp = Move(
     "Standing Light Punch",
     "i",
     1,
-    4, 3, 8,
+    4, 30, 8,
     (28, 20),
     0, 0,
     10, 0,
