@@ -80,7 +80,7 @@ while True:
     player.fall()
 
     player2.check_facing(player)
-    player.directionalise_inputs(keys[1])
+    player2.directionalise_inputs(keys[1])
     player2.input_buffer.append([frame,keys[1]])
     player2.movement(held[1])
     player2.remove_input(frame)
@@ -106,17 +106,28 @@ while True:
     player.update_hurtbox(0)
     player2.update_hurtbox(0)
 
+    screen.blit(background, (0, 0))
 
     visual = spritesheet.subsurface(player.sprite)
     visual = pg.transform.scale(visual,(player.size_x,player.size_y))
 
+    visual2 = spritesheet.subsurface(player2.sprite)
+    visual2 = pg.transform.scale(visual2, (player2.size_x, player2.size_y))
+
+
     if player.facing == 1:
         visual = pg.transform.flip(visual,True,False)
-    #visual.set_alpha(128)
-    screen.blit(background,(0,0))
-    #pg.draw.rect(screen,(255,0,0),player.hurtbox)
-    screen.blit(visual,(player.x,player.y))
+    if player2.facing == 1:
+        visual2 = pg.transform.flip(visual2,True,False)
+    #visual.set_alpha(255 )
+
+    pg.draw.rect(screen,(200,150,230),player.hurtbox)
     pg.draw.rect(screen, (0, 0, 255), player2.hurtbox)
+
+
+    screen.blit(visual,(player.x,player.y))
+    screen.blit(visual2,(player2.x,player2.y))
+
 
 
     if player.attack:
