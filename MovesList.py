@@ -28,10 +28,10 @@ class Move:
 # =========================
 
 st_lp = Move(
-    "Standing Light Punch",
+    "st_lp",
     "i",
     1,
-    4, 30, 8,
+    4, 3, 8,
     (28, 20),
     0, 0,
     10, 0,

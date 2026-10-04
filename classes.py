@@ -17,7 +17,7 @@ state = State()
 
 
 class Character:
-    def __init__(self, x=100, y=100, size_x=250, size_y=400, vx=0, vy=0):
+    def __init__(self, x=100, y=100, size_x=250, size_y = 350, vx=0, vy=0):
         self.input_buffer = []
         self.x = x
         self.y = y
@@ -203,9 +203,14 @@ class Character:
 
 
 
-        self.sprite = sprites.animation(self,sprites.statesprites)
+        temp = sprites.attackanimation(self,sprites.attacksprites)
+        if temp:
+            self.sprite = temp
+        else:
+            self.sprite = sprites.stateanimation(self, sprites.statesprites)
+
         if not self.sprite:
-            self.sprite = (0, 0, 40, 57),
+            self.sprite = (0, 0, 40, 57)
 
 
         self.statetime += 1

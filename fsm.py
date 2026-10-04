@@ -13,8 +13,8 @@ class State:
 
     def idle(self,player):
 
-        player.size_y = 400
-        player.sprite = sprites.animation(player,sprites.statesprites)
+        player.size_y = 350
+
 
     def crouch(self,player):
         player.size_y = 250

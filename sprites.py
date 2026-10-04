@@ -1,8 +1,16 @@
-def animation(player,statesprites):
+def stateanimation(player,statesprites):
     if player.state in statesprites:
-        frame = (player.statetime//5) % len(statesprites[player.state])
+        frame = (player.statetime//5) % len(statesprites[player.state]) # loop through the animation frames
         image = statesprites[player.state][frame]
         return image
+
+def attackanimation(player,attacksprites):
+    if player.currentattack:
+        if player.currentattack.name in attacksprites:
+            scale = player.currentattack.total // len(attacksprites[player.currentattack.name]) # make it so the attack does a full animation loop
+            frame = (player.attacktime//scale) % len(attacksprites[player.currentattack.name])
+            image = attacksprites[player.currentattack.name][frame]
+            return image
 
 
 
@@ -52,4 +60,10 @@ statesprites = {
     "idle" : idle_frames,
     "walking" : walk_frames,
     "hitstun" : hitstun_frames
+}
+
+attacksprites = {
+    "st_lp" : light_punch_frames,
+    "dash forwards" : walk_frames,
+    "dash backwards" : walk_frames
 }

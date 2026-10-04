@@ -127,16 +127,18 @@ while True:
     pg.draw.rect(screen,(200,150,230),player.hurtbox)
     pg.draw.rect(screen, (0, 0, 255), player2.hurtbox)
 
+    if player.attack:
+        pg.draw.rect(screen,(255,100,255),player.attack)
+    if player2.attack:
+        pg.draw.rect(screen, (0,255,0), player2.attack)
+
+
 
     screen.blit(visual,(player.x,player.y))
     screen.blit(visual2,(player2.x,player2.y))
 
 
 
-    if player.attack:
-        pg.draw.rect(screen,(255,100,255),player.attack)
-    if player2.attack:
-        pg.draw.rect(screen, (0,255,0), player2.attack)
 
     frame +=1
 
@@ -144,7 +146,7 @@ while True:
 
     fps_text = font.render(f"{fps} ,  game frame is {frame}, and {game.hitboxes}, and {player.attack}, and {player.health}/{player2.health}, {player2.stun}", True, (255, 255, 255))
     state = font.render(f"state is {player.state} for {player.statetime} frames / {(player.statetime/60):.2g} s, {player.hitbox}", True, (255,255,255))
-    sstate = font.render(f"{keys},{player.sprite}",True, (255, 255, 255))
+    sstate = font.render(f"{keys},{player.sprite},{player.currentattack}",True, (255, 255, 255))
 
     screen.blit(fps_text, (10, 10))
     screen.blit(state,(10,50))
