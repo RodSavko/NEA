@@ -52,7 +52,7 @@ camera_length = 800
 frame = 1
 
 player = Character()
-player2 = Character(1550,400)
+player2 = Character(1500,400)
 
 
 
@@ -81,6 +81,7 @@ while True:
     player.start_move()
     player.fall()
 
+
     player2.check_facing(player)
     player2.directionalise_inputs(keys[1])
     player2.input_buffer.append([frame,keys[1]])
@@ -92,7 +93,8 @@ while True:
     player2.fall()
 
 
-
+    player.move(player2)
+    player2.move(player)
 
 
 
@@ -115,17 +117,17 @@ while True:
     visual = pg.transform.scale(visual,(player.sprite[2] * sprite_scale,player.sprite[3] * sprite_scale))
 
     visual2 = spritesheet.subsurface(player2.sprite)
-    visual2 = pg.transform.scale(visual2, (player2.size_x, player2.size_y))
+    visual2 = pg.transform.scale(visual2,(player2.sprite[2] * sprite_scale,player2.sprite[3] * sprite_scale))
 
 
-    if player.facing == 1:
+    if player.facing == 1: # facing right
         visual = pg.transform.flip(visual,True,False)
     if player2.facing == 1:
         visual2 = pg.transform.flip(visual2,True,False)
     #visual.set_alpha(255 )
 
-    pg.draw.rect(screen,(200,150,230),player.hurtbox)
-    pg.draw.rect(screen, (0, 0, 255), player2.hurtbox)
+   # pg.draw.rect(screen,(200,150,230),player.hurtbox)
+    #pg.draw.rect(screen, (0, 0, 255), player2.hurtbox)
 
     if player.attack:
         pg.draw.rect(screen,(255,100,255),player.attack)

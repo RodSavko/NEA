@@ -24,9 +24,9 @@ class State:
     def walking(self,player):
 
         if player.direction == "6":
-            player.x += 5
+            player.vx = 5
         elif player.direction == "4":
-            player.x -= 5
+            player.vx = -5
         else:
             print("error: no direction when moving")
 
@@ -50,7 +50,7 @@ class State:
 
 
 
-            player.x += player.currentattack.lungex * player.currentattackfacing
+            player.vx = player.currentattack.lungex * player.currentattackfacing
 
             if player.currentattack.lungey: player.vy = player.currentattack.lungey
             if player.currentattack.hitbox:

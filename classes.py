@@ -223,8 +223,24 @@ class Character:
             if self.hurtbox.colliderect(enemy.hitbox):
                 self.stun = enemy.currentattack.stun
                 self.health -= enemy.currentattack.damage
-                self.x += enemy.currentattack.knockbackx * self.facing * -1
+                self.vx = enemy.currentattack.knockbackx * self.facing * -1
                 self.y -= enemy.currentattack.knockbacky * 10
                 enemy.currentattackhit = True
                 self.fsm("hitstun")
 
+
+
+
+    def collidehurtbox(self,enemy):
+        distance = abs(self.x - enemy.x)
+        if distance < self.size_x:
+            if self.x < enemy.x and self.state: #facing right
+                self.x = enemy.x - self.size_x
+            else: #facing left
+                self.x = enemy.x + self.size_x
+
+    def move(self,enemy):
+        if self.vx:
+            self.x += self.vx
+            self.collidehurtbox(enemy)
+            self.vx = 0
