@@ -16,7 +16,7 @@ fps = pg.time.Clock()
 #2 basic attack - not even half baked yet
 #3 crouch - ehhh
 # - make thew screen more normal - mayube basic fsm logic
-# fsm - done fuck yeah
+# fsm - done
 #4 normal attacks - i mean kinda need to get the actual frame data
 #5 - collision checks
 #6 command normals
@@ -29,13 +29,13 @@ fps = pg.time.Clock()
 # coordinates
 # camera move
 
-#need to fix jump - three directional jump = plus all teh fucking air logic
+#need to fix jump - three directional jump = plus all teh  air logic
 
 #should change how dashes work - instead of instant teleport make a velocity boost - doneeee
 
 
 #the plan for inputs - when getting the inmputs store them in two separate lists per player, one for click and other is hold down, remove the release for clicks, and have the movement be held down, so when reading inpujts, check teh click list for moves and only then the hold list for the movemnt directions, make it modular so it can do command normals type shit,
-# i fuckin did it
+# i did it
 
 #so the input handling is done for now
 

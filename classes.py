@@ -210,7 +210,7 @@ class Character:
             self.sprite = sprites.stateanimation(self, sprites.statesprites)
 
         if not self.sprite:
-            self.sprite = (0, 0, 40, 57)
+            self.sprite = (951, 3206, 72, 108)
 
 
         self.statetime += 1
@@ -232,8 +232,10 @@ class Character:
 
 
     def collidehurtbox(self,enemy):
-        distance = abs(self.x - enemy.x)
-        if distance < self.size_x:
+        distancex = abs(self.x - enemy.x)
+        distancey = abs(self.y - enemy.y)
+
+        if distancex < self.size_x and distancey < self.size_y:
             if self.x < enemy.x and self.state: #facing right
                 self.x = enemy.x - self.size_x
             else: #facing left
