@@ -5,6 +5,7 @@ state_transitions = {
         "walking",
         "jump",
         "hitstun",
+        "airborne"
     ],
 
     "jump": [
@@ -16,6 +17,8 @@ state_transitions = {
         "landing",
         "air_attack_start_up",
         "air_hitstun",
+        "idle",
+        "walking"
     ],
 
     "air_hitstun": [
@@ -66,6 +69,7 @@ state_transitions = {
         "hitstun",
         "startup",
         "crouch",
+        "airborne"
     ],
 
     "startup": [

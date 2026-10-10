@@ -227,7 +227,7 @@ kyuubi_kudaki = Move(
 
 dashbackwards = Move("dash backwards","44",3,0,15,0, 0, -15)
 dashforwards = Move("dash forwards","66",3,0,15,0,0,15)
-jump = Move("jump", "8",1,3,1,0,0,0,25)
+jump = Move("jump", "8",1,3,1,0,0,0,25, startstates=("idle","walking"))
 
 
 MoveList = (st_lp,cr_lp,st_mp,st_hp,cr_hp,st_lk,cr_lk,st_mk,st_hk,cr_hk,sakotsu_wari,kyuubi_kudaki,dashbackwards,dashforwards,jump)

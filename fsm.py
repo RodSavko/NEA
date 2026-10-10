@@ -36,18 +36,15 @@ class State:
         if player.statetime > player.currentattack.startup:
             player.fsm("active")
 
+
+
+
+
     def active(self,player):
         if player.statetime > player.currentattack.active:
             player.fsm("recovery")
 
-
-
-
-
         else:
-
-
-
 
 
             player.vx = player.currentattack.lungex * player.currentattackfacing
@@ -66,6 +63,7 @@ class State:
                     player.hitbox = hitbox
                 return hitbox
 
+
     def recovery(self,player):
         if player.statetime > player.currentattack.recovery:
             player.fsm("idle")
@@ -81,5 +79,7 @@ class State:
             player.fsm("idle")
 
 
+    def airborne(self,player):
 
+        player.vx = player.jumpvx
 

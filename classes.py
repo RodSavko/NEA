@@ -51,6 +51,7 @@ class Character:
         self.sprite = (0, 0, 40, 57)
         self.visual = 0
         self.attacktime = 0
+        self.jumpvx = 0
 
 
     def remove_input(self, frame):
@@ -142,7 +143,7 @@ class Character:
                 self.fsm("crouch")
 
         else:
-            if not self.currentattack and not self.stun:
+            if not self.currentattack and not self.stun and self.y == 700:
                 self.fsm("idle")
 
     def fsm(self,newstate):
@@ -167,6 +168,8 @@ class Character:
             self.facing = 1 #facing right
 
     def fall(self):
+        if self.y < 700:
+            self.fsm("airborne")
 
 
 
@@ -200,6 +203,8 @@ class Character:
             state.recovery(self)
         if self.state == "hitstun":
             state.hitstun(self)
+        if self.state == "airborne":
+            state.airborne(self)
 
 
 
@@ -211,7 +216,6 @@ class Character:
 
         if not self.sprite:
             self.sprite = (951, 3206, 72, 108)
-
 
         self.statetime += 1
         if self.currentattack:
@@ -242,6 +246,9 @@ class Character:
                 self.x = enemy.x + self.size_x
 
     def move(self,enemy):
+        if self.state == "startup" and self.statetime == 0: #genuinly dont knwo hwat is frame zero but it works
+            self.jumpvx = self.vx
+
         if self.vx:
             self.x += self.vx
             self.collidehurtbox(enemy)

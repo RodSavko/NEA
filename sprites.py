@@ -56,10 +56,24 @@ light_punch_frames = [
     (332,  1537, 78,  105), # back to guard
 ]
 
+jump_flip_frames = [
+    (1281, 274, 71, 89),   # tuck begins
+    (1354, 308, 68, 55),   # tumbling
+    (1423, 316, 70, 46),
+    (1494, 309, 60, 51),
+    (1555, 305, 53, 58),
+    (1611, 314, 66, 49),   # last tumble frame
+    (1679, 286, 79, 77),   # opening out of the flip
+    (1759, 254, 69, 109),  # coming down
+    (1829, 249, 62, 114),  # descent / pre-landing
+]
+
+
 statesprites = {
     "idle" : idle_frames,
     "walking" : walk_frames,
-    "hitstun" : hitstun_frames
+    "hitstun" : hitstun_frames,
+    "airborne" : jump_flip_frames
 }
 
 attacksprites = {

@@ -51,8 +51,8 @@ camera_length = 800
 
 frame = 1
 
-player = Character()
-player2 = Character(1500,400)
+player = Character(100,700)
+player2 = Character(1500,700)
 
 
 
@@ -148,7 +148,7 @@ while True:
 
     fps_text = font.render(f"{fps} ,  game frame is {frame}, and {game.hitboxes}, and {player.attack}, and {player.health}/{player2.health}, {player2.stun}", True, (255, 255, 255))
     state = font.render(f"state is {player.state} for {player.statetime} frames / {(player.statetime/60):.2g} s, {player.hitbox}", True, (255,255,255))
-    sstate = font.render(f"{keys},{player.sprite},{player.currentattack}",True, (255, 255, 255))
+    sstate = font.render(f"{keys},{player.sprite}, {player.y}, {player.vx}, {player.jumpvx}",True, (255, 255, 255))
 
     screen.blit(fps_text, (10, 10))
     screen.blit(state,(10,50))
