@@ -1,6 +1,6 @@
 def stateanimation(player,statesprites):
     if player.state in statesprites:
-        frame = (player.statetime//5) % len(statesprites[player.state]) # loop through the animation frames
+        frame = (player.statetime//6) % len(statesprites[player.state]) # loop through the animation frames
         image = statesprites[player.state][frame]
         return image
 
@@ -8,7 +8,7 @@ def attackanimation(player,attacksprites):
     if player.currentattack:
         if player.currentattack.name in attacksprites:
             scale = player.currentattack.total // len(attacksprites[player.currentattack.name]) # make it so the attack does a full animation loop
-            frame = (player.attacktime//scale) % len(attacksprites[player.currentattack.name])
+            frame = (player.attacktime//scale)  % len(attacksprites[player.currentattack.name])
             image = attacksprites[player.currentattack.name][frame]
             return image
 
@@ -67,17 +67,94 @@ jump_flip_frames = [
     (1759, 254, 69, 109),  # coming down
     (1829, 249, 62, 114),  # descent / pre-landing
 ]
+crouch_idle_frames = [
+    (1145, 156, 88, 70),
+    (1234, 155, 87, 71),
+    (1322, 152, 88, 74),
+]
+forward_dash_frames = [
+    (1,   511, 111, 98),   # lunge forward, headband streaming back
+    (113, 515, 116, 94),
+    (230, 515,  95, 94),
+    (326, 514,  92, 95),
+    (419, 506,  78, 103),  # straightening up
 
+]
+
+backward_dash_frames = [
+    (655,  511, 100, 98),  # starts the backward hop
+    (756,  506,  93, 103),
+    (850,  507,  77, 102),
+    (928,  505,  76, 104),
+    (1005, 505,  78, 104),
+
+]
+medium_punch_frames = [
+    (411, 1538, 81, 104),   # windup, fist pulled back
+    (493, 1538, 80, 104),
+    (574, 1541, 80, 101),
+    (655, 1543, 125, 99),   # fist extended
+    (781, 1541, 119, 101),  # extended, held
+    (901, 1540, 90, 102),   # retracting
+  #  (992, 1539, 85, 103),
+ #   (1078, 1539, 94, 103),  # back to guard
+]
+heavy_punch_frames = [
+    # row 15
+    (1173, 1543,  98,  99),   # windup
+    (1272, 1541, 100, 101),
+    (1373, 1541, 102, 101),   # fist pulled back furthest
+    (1476, 1540, 121, 102),   # extension
+    (1598, 1540, 129, 102),   # full reach
+    (1728, 1543, 100,  99),   # starting to retract
+    # continues at the start of row 16
+    (1,    1652, 100,  99),
+    (102,  1652,  98,  99),   # retracting
+    (201,  1651,  96, 100),
+    (298,  1647,  80, 104),   # back to guard
+]
+medium_kick_frames = [
+    # last 3 of row 17
+    (1600, 1769,  64, 106),   # chamber / guard
+    (1665, 1768,  82, 107),   # knee lifting
+    (1748, 1774, 154, 101),   # leg fully extended
+    # first 4 of row 18
+    (1,    1887, 146, 103),   # extended, held
+    (148,  1887, 121, 103),   # retracting
+    (270,  1884,  86, 106),
+    (357,  1885,  70, 105),   # back to guard
+]
+
+heavy_kick_frames = [
+    (532,  1893,  76,  97),   # windup, turning
+    (609,  1896,  77,  94),
+    (687,  1890,  91, 100),
+    (779,  1892,  80,  98),
+    (860,  1890,  74, 100),   # leg starting to lift
+    (935,  1878, 112, 112),   # high kick rising
+    (1048, 1876, 115, 114),   # peak, leg overhead
+    (1164, 1878, 118, 112),   # coming back down
+    (1283, 1894, 117,  96),
+    (1401, 1892,  76,  98),
+    (1478, 1889,  70, 101),   # recovery
+   # (1549, 1886,  78, 104),
+    #(1628, 1886,  77, 104),   # back to guard
+]
 
 statesprites = {
     "idle" : idle_frames,
     "walking" : walk_frames,
     "hitstun" : hitstun_frames,
-    "airborne" : jump_flip_frames
+    "airborne" : jump_flip_frames,
+    "crouch" : crouch_idle_frames
 }
 
 attacksprites = {
-    "st_lp" : light_punch_frames,
-    "dash forwards" : walk_frames,
-    "dash backwards" : walk_frames
+    "st lp" : light_punch_frames,
+    "st mp" : medium_punch_frames,
+    "st hp" : heavy_punch_frames,
+    "st mk" : medium_kick_frames,
+    "st hk" : heavy_kick_frames,
+    "dash forwards" : forward_dash_frames,
+    "dash backwards" : backward_dash_frames
 }

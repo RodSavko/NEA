@@ -28,7 +28,7 @@ class Move:
 # =========================
 
 st_lp = Move(
-    "st_lp",
+    "st lp",
     "i",
     1,
     4, 3, 8,
@@ -41,7 +41,7 @@ st_lp = Move(
 )
 
 st_mp = Move(
-    "Standing Medium Punch",
+    "st mp",
     "j",
     1,
     5, 4, 9,
@@ -67,7 +67,7 @@ st_lk = Move(
 )
 
 st_mk = Move(
-    "Standing Medium Kick",
+    "st mk",
     "l",
     1,
     6, 4, 12,
@@ -139,7 +139,7 @@ cr_mk = Move(
 # =========================
 
 st_hp = Move(
-    "Standing Heavy Punch",
+    "st hp",
     "j",
     2,
     11, 3, 18,
@@ -152,7 +152,7 @@ st_hp = Move(
 )
 
 st_hk = Move(
-    "Standing Heavy Kick",
+    "st hk",
     "l",
     2,
     8, 5, 18,
