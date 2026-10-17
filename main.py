@@ -80,6 +80,7 @@ while True:
     player.read_inputs()
     player.start_move()
     player.fall()
+    player.landing()
 
 
     player2.check_facing(player)
@@ -91,6 +92,8 @@ while True:
     player2.read_inputs()
     player2.start_move()
     player2.fall()
+    player2.landing()
+
 
 
     player.move(player2)
@@ -126,7 +129,7 @@ while True:
         visual2 = pg.transform.flip(visual2,True,False)
     #visual.set_alpha(255 )
 
-   # pg.draw.rect(screen,(200,150,230),player.hurtbox)
+    #pg.draw.rect(screen,(200,150,230),player.hurtbox)
     #pg.draw.rect(screen, (0, 0, 255), player2.hurtbox)
 
     if player.attack:
@@ -148,7 +151,7 @@ while True:
 
     fps_text = font.render(f"{fps} ,  game frame is {frame}, and {game.hitboxes}, and {player.attack}, and {player.health}/{player2.health}, {player2.stun}", True, (255, 255, 255))
     state = font.render(f"state is {player.state} for {player.statetime} frames / {(player.statetime/60):.2g} s, {player.hitbox}", True, (255,255,255))
-    sstate = font.render(f"{keys},{player.sprite}, {player.y}, {player.vx}, {player.jumpvx}",True, (255, 255, 255))
+    sstate = font.render(f"{keys},{player.sprite}, {player.y}, {player.vx}, {player.jumpvx}, {player.y}",True, (255, 255, 255))
 
     screen.blit(fps_text, (10, 10))
     screen.blit(state,(10,50))

@@ -132,7 +132,8 @@ class Character:
             if held[0] == "6":
 
                 self.direction = "6"
-                self.fsm("walking")
+                if (self.y + self.size_y) == 1050:
+                    self.fsm("walking")
             elif held[0] == "4":
                 self.direction = "4"
                 self.fsm("walking")
@@ -143,7 +144,7 @@ class Character:
                 self.fsm("crouch")
 
         else:
-            if not self.currentattack and not self.stun and self.y == 700:
+            if not self.currentattack and not self.stun and (self.y + self.size_y) == 1050:
                 self.fsm("idle")
 
     def fsm(self,newstate):
@@ -187,9 +188,9 @@ class Character:
 
         if self.state == "idle":
             state.idle(self)
-        elif self.state == "crouch":
+        if self.state == "crouch":
             state.crouch(self)
-        elif self.state == "walking":
+        if self.state == "walking":
             state.walking(self)
 
         if self.state == "startup":
@@ -222,6 +223,7 @@ class Character:
             self.attacktime += 1
         else:
             self.attacktime = 0
+
     def checkifgothit(self,enemy):
         if enemy.hitbox and not enemy.currentattackhit:
             if self.hurtbox.colliderect(enemy.hitbox):
@@ -249,7 +251,13 @@ class Character:
         if self.state == "startup" and self.statetime == 0: #genuinly dont knwo hwat is frame zero but it works
             self.jumpvx = self.vx
 
+
+
         if self.vx:
             self.x += self.vx
             self.collidehurtbox(enemy)
             self.vx = 0
+
+    def landing(self):
+        if self.state == "airborne" and (self.y + self.size_y) == 1050:
+            self.fsm("landing")

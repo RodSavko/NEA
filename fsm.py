@@ -19,7 +19,7 @@ class State:
     def crouch(self,player):
         player.size_y = 250
         if player.statetime == 1:
-            player.y += 150
+            player.y += 100
 
     def walking(self,player):
 

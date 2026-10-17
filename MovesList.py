@@ -148,7 +148,7 @@ st_hp = Move(
     25, 0,
     130, 13,
     20,
-    ("walking")
+    ("walking",)
 )
 
 st_hk = Move(
