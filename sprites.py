@@ -140,6 +140,14 @@ heavy_kick_frames = [
    # (1549, 1886,  78, 104),
     #(1628, 1886,  77, 104),   # back to guard
 ]
+light_kick_frames = [
+    (113, 1996,  76, 105),   # knee lifting
+    (190, 2000,  68, 101),
+    (259, 1999, 104, 102),   # leg extending
+    (364, 1998, 102, 103),   # full extension
+    (467, 2000,  65, 101),   # leg pulling back
+    #(533, 1999,  64, 102),   # back to guard
+]
 
 statesprites = {
     "idle" : idle_frames,
@@ -155,6 +163,7 @@ attacksprites = {
     "st hp" : heavy_punch_frames,
     "st mk" : medium_kick_frames,
     "st hk" : heavy_kick_frames,
+    "st lk" : light_kick_frames,
     "dash forwards" : forward_dash_frames,
     "dash backwards" : backward_dash_frames
 }

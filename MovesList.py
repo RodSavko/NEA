@@ -32,7 +32,7 @@ st_lp = Move(
     "i",
     1,
     4, 3, 8,
-    (40, 20),
+    (43, 20),
     0, 0,
     10, 0,
     20, 3,
@@ -45,7 +45,7 @@ st_mp = Move(
     "j",
     1,
     5, 4, 9,
-    (38, 22),
+    (50, 22),
     0, 0,
     15, 0,
     100, 11,
@@ -54,15 +54,15 @@ st_mp = Move(
 )
 
 st_lk = Move(
-    "Standing Light Kick",
+    "st lk",
     "k",
     1,
     4, 3, 8,
-    (32, 18),
+    (32, 35),
     0, 0,
     10, 0,
     30, 3,
-    55,
+    170,
     ("idle")
 )
 
@@ -71,11 +71,11 @@ st_mk = Move(
     "l",
     1,
     6, 4, 12,
-    (48, 20),
+    (80, 20),
     0, 0,
     15, 0,
     80, 7,
-    55,
+    100,
     ("idle")
 )
 
@@ -143,11 +143,11 @@ st_hp = Move(
     "j",
     2,
     11, 3, 18,
-    (45, 28),
+    (48, 28),
     0, 0,
     25, 0,
     130, 13,
-    20,
+    15,
     ("walking",)
 )
 
@@ -155,12 +155,12 @@ st_hk = Move(
     "st hk",
     "l",
     2,
-    8, 5, 18,
-    (52, 22),
+    7, 8, 18,
+    (52, 50),
     0, 0,
     25, 0,
     140, 13,
-    50,
+    -30,
     ("walking")
 )
 
@@ -227,7 +227,7 @@ kyuubi_kudaki = Move(
 
 dashbackwards = Move("dash backwards","44",3,0,15,0, 0, -15)
 dashforwards = Move("dash forwards","66",3,0,15,0,0,15)
-jump = Move("jump", "8",1,3,1,0,0,0,25, startstates=("idle","walking"))
+jump = Move("jump", "8",1,3,1,0,0,0,35, startstates=("idle","walking"))
 
 
 MoveList = (st_lp,cr_lp,st_mp,st_hp,cr_hp,st_lk,cr_lk,st_mk,st_hk,cr_hk,sakotsu_wari,kyuubi_kudaki,dashbackwards,dashforwards,jump)

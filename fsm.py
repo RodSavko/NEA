@@ -80,6 +80,6 @@ class State:
 
 
     def airborne(self,player):
-
+        player.size_y = 200
         player.vx = player.jumpvx
 

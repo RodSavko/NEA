@@ -249,7 +249,7 @@ class Character:
 
     def move(self,enemy):
         if self.state == "startup" and self.statetime == 0: #genuinly dont knwo hwat is frame zero but it works
-            self.jumpvx = self.vx
+            self.jumpvx = self.vx * 2
 
 
 

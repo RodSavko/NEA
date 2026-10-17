@@ -118,28 +118,31 @@ while True:
     visual = spritesheet.subsurface(player.sprite)
 
     visual = pg.transform.scale(visual,(player.sprite[2] * sprite_scale,player.sprite[3] * sprite_scale))
-
     visual2 = spritesheet.subsurface(player2.sprite)
     visual2 = pg.transform.scale(visual2,(player2.sprite[2] * sprite_scale,player2.sprite[3] * sprite_scale))
 
-
-    if player.facing == 1: # facing right
-        visual = pg.transform.flip(visual,True,False)
-    if player2.facing == 1:
-        visual2 = pg.transform.flip(visual2,True,False)
-    #visual.set_alpha(255 )
-
-    #pg.draw.rect(screen,(200,150,230),player.hurtbox)
-    #pg.draw.rect(screen, (0, 0, 255), player2.hurtbox)
+    pg.draw.rect(screen, (200, 150, 230), player.hurtbox)
+    pg.draw.rect(screen, (0, 0, 255), player2.hurtbox)
 
     if player.attack:
         pg.draw.rect(screen,(255,100,255),player.attack)
     if player2.attack:
-        pg.draw.rect(screen, (0,255,0), player2.attack)
+        pg.draw.rect(screen, (0, 255, 0), player2.attack)
+
+    #  visual.set_alpha(128 )
+    if player.facing == 1: # facing right
+        visual = pg.transform.flip(visual,True,False)
+        screen.blit(visual, (player.x, player.y))
+    else:
+        screen.blit(visual, (player.x - (player.sprite[2] * sprite_scale) + 257.4, player.y))
+    if player2.facing == 1:
+        visual2 = pg.transform.flip(visual2,True,False)
 
 
 
-    screen.blit(visual,(player.x,player.y))
+
+
+    #screen.blit(visual,(player.x,player.y))
     screen.blit(visual2,(player2.x,player2.y))
 
 
