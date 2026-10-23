@@ -81,10 +81,10 @@ st_mk = Move(
 
 
 cr_lp = Move(
-    "Crouching Light Punch",
+    "cr lp",
     "i",
     1,
-    4, 3, 7,
+    3, 3, 6,
     (27, 17),
     0, 0,
     8, 0,
@@ -94,7 +94,7 @@ cr_lp = Move(
 )
 
 cr_mp = Move(
-    "Crouching Medium Punch",
+    "cr mp",
     "j",
     1,
     5, 4, 7,
@@ -156,22 +156,22 @@ st_hk = Move(
     "l",
     2,
     7, 8, 18,
-    (30, 50),
+    (30, 45),
     0, 0,
     25, 0,
     140, 13,
-    -30,
+    -40,
     ("walking")
 )
 
 cr_hp = Move(
-    "Crouching Heavy Punch",
+    "cr hp",
     "j",
     2,
-    5, 5, 19,
+    6, 6, 21,
     (42, 30),
     0, 0,
-    25, 0,
+    25, 20,
     130, 13,
     35,
     ("crouch",)

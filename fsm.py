@@ -22,7 +22,7 @@ class State:
             player.y += 100
 
     def walking(self,player):
-
+        player.size_y = 350
         if player.direction == "6":
             player.vx = 5
         elif player.direction == "4":

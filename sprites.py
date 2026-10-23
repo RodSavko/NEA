@@ -149,6 +149,29 @@ light_kick_frames = [
     #(533, 1999,  64, 102),   # back to guard
 ]
 
+crouching_lp_frames = [
+    (928,  2162,  85, 70),   # crouch guard
+    (1014, 2162, 113, 70),   # fist snaps out
+    (1128, 2163, 110, 69),   # extended
+    (1239, 2164,  85, 68),   # back to guard
+]
+crouching_hp_frames = [
+    # end of row 20
+    (1325, 2163, 93,  69),   # crouch, fist coming back
+    (1419, 2156, 85,  76),   # starting to rise
+    (1505, 2153, 81,  79),
+    (1587, 2145, 81,  87),
+    (1669, 2110, 76, 122),   # fully extended, fist overhead
+    (1746, 2110, 76, 122),
+    (1823, 2111, 76, 121),
+    # start of row 21
+    (1,    2243, 79,  97),   # coming down
+    (81,   2243, 80,  97),
+    (162,  2256, 85,  84),
+    (248,  2269, 81,  71),   # settling back into crouch
+    #(330,  2274, 84,  66),   # crouch guard
+]
+
 statesprites = {
     "idle" : idle_frames,
     "walking" : walk_frames,
@@ -164,6 +187,8 @@ attacksprites = {
     "st mk" : medium_kick_frames,
     "st hk" : heavy_kick_frames,
     "st lk" : light_kick_frames,
+    "cr lp" : crouching_lp_frames,
+    "cr hp" : crouching_hp_frames,
     "dash forwards" : forward_dash_frames,
     "dash backwards" : backward_dash_frames
 }
