@@ -62,7 +62,10 @@ font = pg.font.Font(None, 36)
 
 background = pg.image.load("suzakicastle.webp").convert()
 spritesheet = pg.image.load("ryo-spritesheet.png").convert()
+bluespritesheet = pg.image.load("ryu-spritesheet-judogi-blue.png").convert()
 spritesheet.set_colorkey((255,0,255))
+bluespritesheet.set_colorkey((255,0,255))
+
 background = pg.transform.scale(background,(1920,1080))
 
 
@@ -118,7 +121,7 @@ while True:
     visual = spritesheet.subsurface(player.sprite)
 
     visual = pg.transform.scale(visual,(player.sprite[2] * sprite_scale,player.sprite[3] * sprite_scale))
-    visual2 = spritesheet.subsurface(player2.sprite)
+    visual2 = bluespritesheet.subsurface(player2.sprite)
     visual2 = pg.transform.scale(visual2,(player2.sprite[2] * sprite_scale,player2.sprite[3] * sprite_scale))
 
     pg.draw.rect(screen, (200, 150, 230), player.hurtbox)
