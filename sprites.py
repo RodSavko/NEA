@@ -171,6 +171,46 @@ crouching_hp_frames = [
     (248,  2269, 81,  71),   # settling back into crouch
     #(330,  2274, 84,  66),   # crouch guard
 ]
+crouching_lk_frames = [
+    (415, 2278, 137, 62),   # leg extended
+    (553, 2279, 129, 61),   # held
+    (683, 2277,  94, 63),   # pulling back
+    (778, 2269,  87, 71),   # back to crouch guard
+]
+crouching_hk_frames = [
+    # end of row 21
+    (1630, 2264, 121, 76),   # new windup, turning
+    (1752, 2268,  70, 72),
+    # start of row 22
+    (1,    2373, 135, 70),   # low leg out
+    (137,  2374, 133, 69),
+    (271,  2375, 121, 68),   # leg rising
+    (393,  2380, 107, 63),
+    (501,  2382,  83, 61),   # back to low crouch
+]
+sakotsu_wari_frames = [
+    (201,  3457, 106, 106),   # wide stance, fist coming up
+    (308,  3457, 102, 106),
+    (411,  3456,  98, 107),   # fist raised overhead
+    (510,  3455, 104, 108),   # turning into the chop
+    (615,  3450, 110, 113),   # chop landing, headband flying
+    (726,  3455, 106, 108),
+    (833,  3464, 106,  99),   # recovering
+    (940,  3465,  96,  98),
+    (1037, 3461,  80, 102),   # back toward guard
+]
+
+kyuubi_kudaki_frames = [
+    (969,  3723, 106, 97),   # fist pulled back
+    (1076, 3723, 105, 97),   # arm starting to drive forward
+    (1182, 3721,  96, 99),
+    (1279, 3722,  90, 98),
+    (1370, 3720, 122, 100),  # full thrust
+    (1493, 3721, 108, 99),   # retracting
+    (1602, 3721, 103, 99),
+    (1706, 3717,  83, 103),  # back to guard
+    (1790, 3717,  78, 103),
+]
 
 statesprites = {
     "idle" : idle_frames,
@@ -189,6 +229,10 @@ attacksprites = {
     "st lk" : light_kick_frames,
     "cr lp" : crouching_lp_frames,
     "cr hp" : crouching_hp_frames,
+    "cr lk" : crouching_lk_frames,
+    "cr hk" : crouching_hk_frames,
+    "sakotsu wari" : sakotsu_wari_frames,
+    "kyuubi kudaki" : kyuubi_kudaki_frames,
     "dash forwards" : forward_dash_frames,
     "dash backwards" : backward_dash_frames
 }

@@ -107,10 +107,10 @@ cr_mp = Move(
 )
 
 cr_lk = Move(
-    "Crouching Light Kick",
+    "cr lk",
     "k",
     1,
-    4, 3, 8,
+    3, 5, 8,
     (30, 13),
     0, 0,
     8, 0,
@@ -178,10 +178,10 @@ cr_hp = Move(
 )
 
 cr_hk = Move(
-    "Crouching Heavy Kick",
+    "cr hk",
     "l",
     2,
-    8, 5, 20,
+    8, 7, 20,
     (52, 15),
     0, 0,
     30, -5,
@@ -198,7 +198,7 @@ cr_hk = Move(
 # =========================
 
 sakotsu_wari = Move(
-    "Sakotsu Wari",
+    "sakotsu wari",
     "i",
     3,
     7, 5, 25,
@@ -211,10 +211,10 @@ sakotsu_wari = Move(
 )
 
 kyuubi_kudaki = Move(
-    "Kyuubi Kudaki",
+    "kyuubi kudaki",
     "k",
     3,
-    12, 5, 25,
+    12, 8, 25,
     (45, 25),
     0, 0,
     25, 0,
