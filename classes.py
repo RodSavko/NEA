@@ -36,7 +36,7 @@ class Character:
         self.flagpos = -1
         self.flagpri = -1
         self.movequeue = []
-        self.currentattack = ""
+        self.currentattack = None
         self.statetime = 1
         self.prevstate = "idle"
         self.attack = ""
@@ -128,6 +128,8 @@ class Character:
 
     def movement(self, held):
 
+
+
         if held:
             if held[0] == "6":
 
@@ -146,10 +148,14 @@ class Character:
         else:
             if not self.currentattack and not self.stun and (self.y + self.size_y) == 1050:
                 self.fsm("idle")
+        #    else:
+                #print(self.currentattack.name, bool(self.currentattack), (self.y + self.size_y), bool(self.stun))
 
     def fsm(self,newstate):
         if newstate != self.state:
             if newstate in state_transitions[self.state]:
+                if newstate == "recovery":
+                    print("going from:", self.state, "to:", newstate)
                 self.statetime = 0
                 self.prevstate = self.state
                 self.state = newstate
@@ -159,6 +165,7 @@ class Character:
         if self.movequeue and not self.currentattack:
 
             self.currentattack, self.currentattackfacing = self.movequeue.pop(0)
+            #print(self.currentattack)
 
             self.fsm("startup")
 
@@ -206,6 +213,8 @@ class Character:
             state.hitstun(self)
         if self.state == "airborne":
             state.airborne(self)
+        if self.state == "landing":
+            state.landing(self)
 
 
 

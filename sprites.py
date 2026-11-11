@@ -211,7 +211,13 @@ kyuubi_kudaki_frames = [
     (1706, 3717,  83, 103),  # back to guard
     (1790, 3717,  78, 103),
 ]
-
+jumping_lp_frames = [
+    (585, 2372, 81, 71),
+    (667, 2371, 83, 72),
+    (751, 2365, 96, 78),
+    (848, 2347, 78, 96),
+    (927, 2355, 86, 88),
+]
 statesprites = {
     "idle" : idle_frames,
     "walking" : walk_frames,
@@ -231,6 +237,7 @@ attacksprites = {
     "cr hp" : crouching_hp_frames,
     "cr lk" : crouching_lk_frames,
     "cr hk" : crouching_hk_frames,
+    "ju lp" : jumping_lp_frames,
     "sakotsu wari" : sakotsu_wari_frames,
     "kyuubi kudaki" : kyuubi_kudaki_frames,
     "dash forwards" : forward_dash_frames,

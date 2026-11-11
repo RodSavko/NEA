@@ -222,6 +222,18 @@ kyuubi_kudaki = Move(
     30,
     ("walking",)
 )
+j_lp = Move(
+    "ju lp",
+    "i",
+    1,
+    4, 8, 0,
+    (30, 25),
+    0, 0,
+    10, 0,
+    25, 3,
+    40,
+    ("airborne")
+)
 
 
 
@@ -230,7 +242,7 @@ dashforwards = Move("dash forwards","66",3,0,15,0,0,15)
 jump = Move("jump", "8",1,3,1,0,0,0,35, startstates=("idle","walking"))
 
 
-MoveList = (st_lp,cr_lp,st_mp,st_hp,cr_hp,st_lk,cr_lk,st_mk,st_hk,cr_hk,sakotsu_wari,kyuubi_kudaki,dashbackwards,dashforwards,jump)
+MoveList = (st_lp,cr_lp,st_mp,st_hp,cr_hp,st_lk,cr_lk,st_mk,st_hk,cr_hk,sakotsu_wari,kyuubi_kudaki,dashbackwards,dashforwards,jump,j_lp)
 
 
 

@@ -4,10 +4,6 @@ import sprites
 
 
 class State:
-    def __init__(self,animation = 0):
-        self.animation = animation
-
-
 
 
 
@@ -41,6 +37,7 @@ class State:
 
 
     def active(self,player):
+
         if player.statetime > player.currentattack.active:
             player.fsm("recovery")
 
@@ -65,15 +62,19 @@ class State:
 
 
     def recovery(self,player):
-        if player.statetime > player.currentattack.recovery:
-            player.fsm("idle")
-            player.currentattack = ""
 
-        elif player.currentattack.name == "Standing Light Punch":
-            frame = ((player.attacktime) % len(light_punch_frames))
-            image = light_punch_frames[frame]
-            player.sprite = image
+            if player.statetime == player.currentattack.recovery:
 
+
+                if player.currentattack.startstates == ("airborne"):
+                    if player.y + player.size_y == 1050:
+                        player.fsm("landing")
+                    else:
+                        player.fsm("airborne")
+                else:
+                    player.fsm("idle")
+
+                player.currentattack = None
     def hitstun(self,player):
         if player.stun == 0:
             player.fsm("idle")
@@ -82,4 +83,10 @@ class State:
     def airborne(self,player):
         player.size_y = 200
         player.vx = player.jumpvx
+        if player.size_y + player.y == 1050:
+            player.fsm("landing")
 
+    def landing(self,player):
+        player.size_y = 350
+        if player.statetime > 6:
+            player.fsm("idle")

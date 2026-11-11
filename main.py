@@ -70,6 +70,7 @@ background = pg.transform.scale(background,(1920,1080))
 
 
 
+
 while True:
 
     keys, held = game.get_inputs()
@@ -83,7 +84,7 @@ while True:
     player.read_inputs()
     player.start_move()
     player.fall()
-    player.landing()
+   # player.landing()
 
 
     player2.check_facing(player)
@@ -145,7 +146,8 @@ while True:
     else:
         screen.blit(visual2, (player2.x - (player2.sprite[2] * sprite_scale) + 257.4, player2.y-(player2.sprite[3] * sprite_scale) + player2.size_y))
 
-
+    healthbar = pg.Rect(30, 30, player.health * 0.5, 50)
+    pg.draw.rect(screen,(255,0,0), healthbar)
 
 
 
@@ -161,11 +163,11 @@ while True:
 
     fps_text = font.render(f"{fps} ,  game frame is {frame}, and {game.hitboxes}, and {player.attack}, and {player.health}/{player2.health}, {player2.stun}", True, (255, 255, 255))
     state = font.render(f"state is {player.state} for {player.statetime} frames / {(player.statetime/60):.2g} s, {player.hitbox}", True, (255,255,255))
-    sstate = font.render(f"{keys},{player.sprite}, {player.y}, {player.vx}, {player.jumpvx}, {player.y}",True, (255, 255, 255))
+    state2 = font.render(f" {player.x, player.y}, {player.size_x, player.size_y}, {player.vx,player.vy}, {player.jumpvx}, {bool(player.currentattack)}",True, (255, 255, 255))
 
-    screen.blit(fps_text, (10, 10))
-    screen.blit(state,(10,50))
-    screen.blit(sstate,(10,90))
+    screen.blit(fps_text, (10, 100))
+    screen.blit(state,(10,150))
+    screen.blit(state2,(10,190))
 
 
     pg.display.update()

@@ -44,4 +44,3 @@ class GameLoop:
             if player.hitbox:
                 self.hitboxes.append(player.hitbox)
 
-
