@@ -141,7 +141,7 @@ class Character:
                 self.fsm("walking")
 
 
-            if "2" in held:
+            if "2" in held and not self.currentattack:
 
                 self.fsm("crouch")
 
@@ -149,13 +149,13 @@ class Character:
             if not self.currentattack and not self.stun and (self.y + self.size_y) == 1050:
                 self.fsm("idle")
         #    else:
-                #print(self.currentattack.name, bool(self.currentattack), (self.y + self.size_y), bool(self.stun))
+       #        print(self.currentattack.name, bool(self.currentattack), (self.y + self.size_y), bool(self.stun))
 
     def fsm(self,newstate):
         if newstate != self.state:
             if newstate in state_transitions[self.state]:
-                if newstate == "recovery":
-                    print("going from:", self.state, "to:", newstate)
+               # if newstate == "recovery":
+                #    print("going from:", self.state, "to:", newstate)
                 self.statetime = 0
                 self.prevstate = self.state
                 self.state = newstate
