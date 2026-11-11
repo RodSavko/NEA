@@ -68,7 +68,9 @@ bluespritesheet.set_colorkey((255,0,255))
 
 background = pg.transform.scale(background,(1920,1080))
 
-
+healthbarbg = pg.Rect(30, 30, 500, 50)
+healthbar2bg = pg.Rect(1390, 30, 500, 50)
+bigfont = pg.font.Font(None,200)
 
 
 while True:
@@ -147,9 +149,14 @@ while True:
         screen.blit(visual2, (player2.x - (player2.sprite[2] * sprite_scale) + 257.4, player2.y-(player2.sprite[3] * sprite_scale) + player2.size_y))
 
     healthbar = pg.Rect(30, 30, player.health * 0.5, 50)
+
+    pg.draw.rect(screen,(0,0,0),healthbarbg)
     pg.draw.rect(screen,(255,0,0), healthbar)
 
+    healthbar2 = pg.Rect(1390+(500 -player2.health * 0.5), 30, player2.health * 0.5, 50)
 
+    pg.draw.rect(screen,(0,0,0), healthbar2bg)
+    pg.draw.rect(screen,(255,0,0), healthbar2)
 
     #screen.blit(visual,(player.x,player.y))
    # screen.blit(visual2,(player2.x,player2.y))
@@ -159,7 +166,14 @@ while True:
 
     frame +=1
 
-
+    if player.health <= 0 or player2.health <= 0:
+        while True:
+            if player.health <= 0:
+                screen.blit(bigfont.render("player 2 won",True,(255,255,255)),(500,500))
+                pg.display.update()
+            else:
+                screen.blit(bigfont.render("player 1 won", True, (255, 255, 255)), (500, 500))
+                pg.display.update()
 
     fps_text = font.render(f"{fps} ,  game frame is {frame}, and {game.hitboxes}, and {player.attack}, and {player.health}/{player2.health}, {player2.stun}", True, (255, 255, 255))
     state = font.render(f"state is {player.state} for {player.statetime} frames / {(player.statetime/60):.2g} s, {player.hitbox}", True, (255,255,255))
